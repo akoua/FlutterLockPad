@@ -1,17 +1,12 @@
-# mypocket_pin
-
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a custom Flutter Lock Pad.
 
-A few resources to get you started if this is your first Flutter project:
+You can customize it and make all you want it's open for you but it's used two Flutter projects:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [flutter-passcode](https://github.com/xPutnikx/flutter-passcode)
+- [flutter-pin-pad)](https://github.com/80-20-labs/flutter-pin-pad)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For help, contact me
+.
 # FlutterLockPad
