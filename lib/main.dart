@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mypocket_pin/padScreen/pin_pad.dart';
 
@@ -32,11 +34,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Color _backgroundColor;
+  Text _title;
+
+  /// Ce stream permet de prendre une décision après que la validation soit ok
+  final StreamController<bool> _validationNotifier =
+      StreamController<bool>.broadcast();
+
+  @override
+  void initState() {
+    super.initState();
+    _backgroundColor = Colors.blue;
+    _title = Text("Entrer votre mot de passe",
+        style: TextStyle(color: Colors.white));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PinPad(
-        title: Text("data"),
+        title: _title,
         titleforget: Text(
           "Mot de passe oublié ?",
           style: TextStyle(color: Colors.white),
@@ -46,31 +63,36 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         circleInputConfig: CircleInputConfig(
             borderColor: Colors.white, fillColor: Colors.white, circleSize: 30),
+        titleWidthMargin: 130,
+        backgroundColor: _backgroundColor,
+        passwordValidationCallback: _onPasswordValidationCallback,
+        isValidationCallback: _isValidationCallback,
+        triggerValidation: _validationNotifier.stream,
       ),
     );
-    // Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(widget.title),
-    //   ),
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         Text(
-    //           'You have pushed the button this many times:',
-    //         ),
-    //         Text(
-    //           '$_counter',
-    //           style: Theme.of(context).textTheme.headline4,
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: _incrementCounter,
-    //     tooltip: 'Increment',
-    //     child: Icon(Icons.add),
-    //   ),
-    // );
+  }
+
+  _onPasswordValidationCallback(String enteredPasscode) {
+    /// Vous pouvez attendre la reponse de votre serveur avant de passer
+    /// par là
+    bool isValid = '1234' == enteredPasscode;
+    _validationNotifier.add(isValid);
+    if (!isValid) {
+      setState(() {
+        this._backgroundColor = Colors.red;
+      });
+    }
+  }
+
+  _isValidationCallback(bool isValid) {
+    if (isValid) {
+      print("je peux faire la redirection vers la page de mon choix");
+      setState(() {
+        this._backgroundColor = Colors.blue;
+      });
+    } else {
+      print(
+          "Je peux mettre à jour un widget du pad, en fait je peux tout faire");
+    }
   }
 }

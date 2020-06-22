@@ -43,7 +43,7 @@ class NumPinKeyboard extends StatelessWidget {
                 keyContentColor: keyFontColor,
                 onPressed: () {
                   if (currentPinInputLength < pinInputLength) {
-                    print("click on 1  $pinInputLength ");
+                    // print("click on 1  $pinInputLength ");
                     onKeyboardTap("1");
                   }
                 },
@@ -187,17 +187,6 @@ class NumPinKeyboard extends StatelessWidget {
                     // print("delete");
                     onkeyboardRemoveTap();
                   }),
-              // NumPinKey(
-              //     digit: Icon(
-              //       Icons.clear,
-              //       size: 20,
-              //       color: clearKeyFontColor,
-              //     ),
-              //     keyBackgrounColor: clearKeyBackgroundColor,
-              //     onPressed: () {
-              //       // NumPadController.shakeAnimation.forward();
-              //       pinInputController.clear();
-              //     }),
             ],
           ),
         ),
