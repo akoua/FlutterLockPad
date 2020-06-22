@@ -23,15 +23,15 @@ class CircleInput extends StatelessWidget {
       {Key key,
       this.filled = false,
       @required this.circleUIConfig,
-      this.extraSize = 5})
+      this.extraSize})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // margin: EdgeInsets.only(bottom: extraSize, ),
-      margin: EdgeInsets.all(
-        extraSize,
+      margin: EdgeInsets.symmetric(
+        horizontal: extraSize,
       ),
       width: circleUIConfig.circleSize,
       height: circleUIConfig.circleSize,

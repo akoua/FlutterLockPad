@@ -2,11 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:mypocket_pin/padScreen/circle_input.dart';
 import 'package:mypocket_pin/padScreen/keyboard_pin.dart';
 
+typedef ClickForgetCallback = void Function();
+
 class PinPad extends StatefulWidget {
   final int passwordDigits;
   final CircleInputConfig circleInputConfig;
-  final TextEditingController pinInputController = TextEditingController();
-  PinPad({Key key, this.passwordDigits = 4, this.circleInputConfig})
+  // final TextEditingController pinInputController = TextEditingController();
+  final Text title;
+  final Text titleforget;
+  final double titleWidthMargin;
+  final double circleInputPinWidthMargin;
+  final ClickForgetCallback clickForgetCallback;
+  PinPad(
+      {Key key,
+      @required this.title,
+      @required this.titleforget,
+      this.titleWidthMargin = 30,
+      this.circleInputPinWidthMargin = 10,
+      this.passwordDigits = 4,
+      @required this.circleInputConfig,
+      @required this.clickForgetCallback})
       : super(key: key);
 
   @override
@@ -35,9 +50,10 @@ class _PinPadState extends State<PinPad> {
                       Navigator.of(context).pop();
                     }),
                 SizedBox(
-                  width: 30,
+                  width: widget.titleWidthMargin,
                 ),
-                Text("Entré votre mot de passe")
+                widget.title,
+                // Text("Entré votre mot de passe")
               ],
             ),
             SizedBox(
@@ -51,8 +67,8 @@ class _PinPadState extends State<PinPad> {
               height: 20,
             ),
             NumPinKeyboard(
-              keyColor: Colors.amber,
-              clearKeyBackgroundColor: Colors.blue,
+              // keyColor: Colors.amber,
+              // clearKeyBackgroundColor: Colors.blue,
               pinInputLength: 4,
               currentPinInputLength: enteredPasscode.length,
               // pinInputController: widget.pinInputController,
@@ -62,25 +78,39 @@ class _PinPadState extends State<PinPad> {
             SizedBox(
               height: 50,
             ),
-            InkWell(
-                radius: 80,
-                // splashColor: Colors.amber,
-                onTap: () {},
-                child: Text("Code pin oublié ?"))
+            _buildForgetText()
           ],
         ),
       ),
     );
   }
 
+  Widget _buildForgetText() {
+    return FlatButton(
+      child: widget.titleforget,
+
+      /// permet de donner un contour rond lors du click
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
+      // padding: const EdgeInsets.all(10),
+
+      onPressed: () {
+        widget.clickForgetCallback();
+      },
+    );
+  }
+
   List<Widget> _buildCircleInput() {
     var list = <Widget>[];
     // var config = widget.circleInputConfig;
-    var config = CircleInputConfig(
-        borderColor: Colors.white, fillColor: Colors.white, circleSize: 30);
+    var config = widget.circleInputConfig;
     for (var i = 0; i < widget.passwordDigits; i++) {
       list.add(CircleInput(
-          filled: i < enteredPasscode.length, circleUIConfig: config));
+        filled: i < enteredPasscode.length,
+        circleUIConfig: config,
+        extraSize: widget.circleInputPinWidthMargin,
+      ));
     }
     return list;
   }

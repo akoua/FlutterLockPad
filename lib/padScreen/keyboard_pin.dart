@@ -17,7 +17,7 @@ class NumPinKeyboard extends StatelessWidget {
     this.pinInputLength = 4,
     this.currentPinInputLength,
     this.clearKeyBackgroundColor,
-    this.backKeyBackgroundColor = Colors.black38,
+    this.backKeyBackgroundColor = Colors.transparent,
     this.keyColor = Colors.black26,
     this.keyFontColor = Colors.white,
     this.backKeyFontColor = Colors.white,
@@ -257,6 +257,8 @@ class NumPinKey extends StatelessWidget {
           child: FlatButton(
             padding: EdgeInsets.all(margin),
             color: Colors.transparent,
+
+            ///peut-être utilisé pour ajouter de la couleur au contour rond
             // color: keyBackgrounColor,
             shape: CircleBorder(),
             child: NumPinKeyContent(content: digit, color: keyContentColor),

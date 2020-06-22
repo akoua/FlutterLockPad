@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mypocket_pin/padScreen/pin_pad.dart';
 
+import 'padScreen/circle_input.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -33,7 +35,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PinPad(),
+      body: PinPad(
+        title: Text("data"),
+        titleforget: Text(
+          "Mot de passe oublié ?",
+          style: TextStyle(color: Colors.white),
+        ),
+        clickForgetCallback: () {
+          print("forget");
+        },
+        circleInputConfig: CircleInputConfig(
+            borderColor: Colors.white, fillColor: Colors.white, circleSize: 30),
+      ),
     );
     // Scaffold(
     //   appBar: AppBar(
